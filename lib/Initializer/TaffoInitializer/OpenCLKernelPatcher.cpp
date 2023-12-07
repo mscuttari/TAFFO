@@ -51,7 +51,7 @@ void getAndDeleteAnnotationsOfArgument(Function& KernF, unsigned ArgId, Optional
       CallI = dyn_cast<CallInst>(UU);
       if (!CallI)
         continue;
-      if (CallI->getCalledFunction()->getName() != "llvm.var.annotation")
+      if (!CallI->getCalledFunction()->getName().startswith("llvm.var.annotation"))
         continue;
       ConstantExpr *AnnoStringCExp = dyn_cast<ConstantExpr>(CallI->getArgOperand(1));
       if (!AnnoStringCExp || AnnoStringCExp->getOpcode() != Instruction::GetElementPtr)

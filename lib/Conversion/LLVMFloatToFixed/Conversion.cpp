@@ -39,7 +39,7 @@ void FloatToFixed::performConversion(
     // Removes all taffo-related annotations from ll file
     if (CallInst *anno = dyn_cast<CallInst>(v)) {
       if (anno->getCalledFunction()) {
-        if (anno->getCalledFunction()->getName() == "llvm.var.annotation") {
+        if (anno->getCalledFunction()->getName().startswith("llvm.var.annotation")) {
           anno->eraseFromParent();
           i = q.erase(i);
           continue;

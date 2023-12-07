@@ -122,7 +122,7 @@ void TaffoInitializer::readLocalAnnotations(llvm::Function &f, MultiValueMap<Val
       if (!call->getCalledFunction())
         continue;
 
-      if (call->getCalledFunction()->getName() == "llvm.var.annotation") {
+      if (call->getCalledFunction()->getName().startswith("llvm.var.annotation")) {
         bool startingPoint = false;
         parseAnnotation(variables, cast<ConstantExpr>(iIt->getOperand(1)), iIt->getOperand(0), &startingPoint);
         found |= startingPoint;

@@ -99,7 +99,7 @@ void TaffoInitializer::removeAnnotationCalls(ConvQueueT &q)
 
     if (CallInst *anno = dyn_cast<CallInst>(v)) {
       if (anno->getCalledFunction()) {
-        if (anno->getCalledFunction()->getName() == "llvm.var.annotation") {
+        if (anno->getCalledFunction()->getName().startswith("llvm.var.annotation")) {
           i = q.erase(i);
           anno->eraseFromParent();
           continue;
